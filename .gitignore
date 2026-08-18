@@ -1,0 +1,5 @@
+# Capturas de pantalla y artefactos internos de la herramienta de diseño.
+# No forman parte de la app y una de ellas expone una URL interna de
+# claudeusercontent.com (proyecto de diseño) en la barra de direcciones.
+uploads/
+.thumbnail

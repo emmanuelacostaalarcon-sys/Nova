@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="ds/styles.css">
+<script src="https://unpkg.com/lucide@0.446.0/dist/umd/lucide.js"></script>
+<style>
+  body { margin:0; -webkit-font-smoothing:antialiased; }
+  a { color: var(--v-link, #ae1800); }
+  a:hover { color: var(--v-link-hover, #dd2b0f); }
+  @keyframes v-stamp { 0%{opacity:0;transform:rotate(-14deg) scale(1.6)} 22%{opacity:1;transform:rotate(-7deg) scale(.94)} 34%{transform:rotate(-7deg) scale(1)} 78%{opacity:1} 100%{opacity:0;transform:rotate(-7deg) scale(1.02)} }
+  @keyframes v-shimmer { 0%{background-position:-320px 0} 100%{background-position:320px 0} }
+  @keyframes v-rise { 0%{opacity:0;transform:translateY(14px)} 100%{opacity:1;transform:translateY(0)} }
+  @keyframes v-toast { 0%{opacity:0;transform:translateY(20px)} 12%{opacity:1;transform:translateY(0)} 88%{opacity:1;transform:translateY(0)} 100%{opacity:0;transform:translateY(8px)} }
+  @keyframes v-pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+  @media (prefers-reduced-motion: reduce) { *{animation-duration:.01ms !important;transition-duration:.01ms !important} }
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:var(--v-bg,#f3f2f2);color:var(--v-ink,#201e1d);font-family:'Archivo',system-ui,sans-serif;font-size:15px;line-height:1.5;padding-bottom:96px;transition:background .28s ease,color .28s ease">
+
+  <div style="max-width:var(--v-shell,468px);margin:0 auto;background:var(--v-bg,#f3f2f2);border-left:1px solid var(--v-hair,rgba(32,30,29,.16));border-right:1px solid var(--v-hair,rgba(32,30,29,.16));min-height:100vh">
+
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 16px 2px;font-size:11px;font-weight:600;letter-spacing:.04em;opacity:.5">
+      <span>9:41</span>
+      <span style="display:flex;gap:6px;align-items:center"><i data-lucide="wifi" style="width:13px;height:13px"></i><i data-lucide="battery-full" style="width:15px;height:15px"></i></span>
+    </div>
+
+    <header style="display:flex;align-items:center;gap:12px;padding:10px 16px 14px;border-bottom:2px solid var(--v-rule,rgba(32,30,29,.4))">
+      <div style="width:34px;height:34px;background:var(--v-ink,#201e1d);position:relative;flex:none;overflow:hidden">
+        <div style="position:absolute;left:-4px;top:9px;width:44px;height:6px;background:var(--v-accent,#f7cb15);transform:rotate(-38deg)"></div>
+        <div style="position:absolute;left:-4px;top:20px;width:44px;height:6px;background:var(--v-accent,#f7cb15);transform:rotate(-38deg);opacity:.45"></div>
+      </div>
+      <div style="flex:1;min-width:0">
+        <div style="font-weight:800;font-size:21px;letter-spacing:-.02em;line-height:1">VOLTIO</div>
+        <div style="font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;opacity:.6;font-weight:600;margin-top:2px">Materiales eléctricos</div>
+      </div>
+      <button onClick="{{ toggleTheme }}" aria-label="Cambiar tema" style="width:38px;height:38px;display:grid;place-items:center;background:transparent;border:1px solid var(--v-hair,rgba(32,30,29,.16));color:inherit;cursor:pointer;transition:background .18s ease,transform .12s ease" style-hover="background:rgba(128,128,128,.12)" style-active="transform:scale(.93)">
+        <i data-lucide="contrast" style="width:17px;height:17px"></i>
+      </button>
+      <button onClick="{{ goCart }}" aria-label="Carrito" style="position:relative;width:38px;height:38px;display:grid;place-items:center;background:var(--v-ink,#201e1d);color:var(--v-bg,#f3f2f2);border:0;cursor:pointer;transition:transform .12s ease" style-active="transform:scale(.93)">
+        <i data-lucide="shopping-basket" style="width:18px;height:18px"></i>
+        <sc-if value="{{ hasCart }}" hint-placeholder-val="{{ true }}">
+          <span style="position:absolute;top:-6px;right:-6px;min-width:19px;height:19px;padding:0 4px;background:var(--v-accent,#f7cb15);color:var(--v-onAccent,#201e1d);font-size:11px;font-weight:800;display:grid;place-items:center;font-variant-numeric:tabular-nums">{{ cartCount }}</span>
+        </sc-if>
+      </button>
+    </header>
+
+    <div style="padding:14px 16px 0">
+      <div style="display:flex;align-items:center;gap:9px;border:2px solid var(--v-rule,rgba(32,30,29,.4));background:var(--v-surface,#eae9e9);padding:11px 13px">
+        <i data-lucide="search" style="width:17px;height:17px;opacity:.55;flex:none"></i>
+        <input value="{{ query }}" onChange="{{ onQuery }}" placeholder="Cable, ampolleta, 2x20A, CBL-12…" style="flex:1;min-width:0;border:0;background:transparent;color:inherit;font-family:inherit;font-size:14.5px;outline:none;padding:0">
+        <sc-if value="{{ hasQuery }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ clearQuery }}" aria-label="Limpiar" style="border:0;background:transparent;color:inherit;opacity:.55;cursor:pointer;padding:2px;display:grid;place-items:center"><i data-lucide="x" style="width:16px;height:16px"></i></button>
+        </sc-if>
+      </div>
+      <sc-if value="{{ showSuggest }}" hint-placeholder-val="{{ false }}">
+        <div style="border:2px solid var(--v-rule,rgba(32,30,29,.4));border-top:0;background:var(--v-bg,#f3f2f2);animation:v-rise .18s ease both">
+          <div style="font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;opacity:.55;padding:10px 13px 6px">{{ suggestHead }}</div>
+          <sc-for list="{{ suggestions }}" as="s" hint-placeholder-count="3">
+            <button onClick="{{ s.pick }}" style="width:100%;display:flex;align-items:center;gap:10px;text-align:left;padding:11px 13px;background:transparent;border:0;border-top:1px dashed var(--v-hair,rgba(32,30,29,.16));color:inherit;font-family:inherit;font-size:14px;cursor:pointer;transition:background .15s ease" style-hover="background:rgba(128,128,128,.1)">
+              <i data-lucide="corner-down-left" style="width:14px;height:14px;opacity:.45;flex:none"></i>
+              <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ s.name }}</span>
+              <span style="font-size:10.5px;letter-spacing:.06em;opacity:.5;font-variant-numeric:tabular-nums">{{ s.sku }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </sc-if>
+    </div>
+
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+      <div>
+
+        <section style="padding:16px 16px 0">
+          <div style="border:2px solid var(--v-rule,rgba(32,30,29,.4));background:var(--v-offer,#ae1800);color:var(--v-onOffer,#f8f4f4);position:relative;overflow:hidden">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;padding:14px 15px 0">
+              <div>
+                <div style="font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;opacity:.8">Oferta de la semana</div>
+                <div style="font-weight:800;font-size:27px;line-height:1.04;letter-spacing:-.025em;margin-top:6px;max-width:15ch">Cables THHN<br>hasta 22% off</div>
+              </div>
+              <div style="text-align:right;flex:none;padding-top:2px">
+                <div style="font-size:9.5px;letter-spacing:.14em;opacity:.8;font-weight:700">TERMINA EN</div>
+                <div style="font-variant-numeric:tabular-nums;font-weight:800;font-size:20px;letter-spacing:.02em;animation:v-pulse 2.4s ease-in-out infinite">{{ countdown }}</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 15px 14px">
+              <div style="display:flex;gap:3px;align-items:flex-end;height:26px;opacity:.85">
+                <sc-for list="{{ barcode }}" as="b" hint-placeholder-count="22">
+                  <div style="width:{{ b.w }};height:26px;background:var(--v-onOffer,#f8f4f4);opacity:{{ b.o }}"></div>
+                </sc-for>
+              </div>
+              <button onClick="{{ viewOffers }}" style="flex:none;background:var(--v-accent,#f7cb15);color:var(--v-onAccent,#201e1d);border:0;font-family:inherit;font-weight:800;font-size:13px;letter-spacing:.02em;padding:11px 15px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:transform .12s ease,filter .18s ease" style-hover="filter:brightness(1.08)" style-active="transform:scale(.95)">
+                Ver ofertas <i data-lucide="arrow-right" style="width:15px;height:15px"></i>
+              </button>
+            </div>
+            <div style="height:8px;background:repeating-linear-gradient(90deg,var(--v-bg,#f3f2f2) 0 5px,transparent 5px 11px);opacity:.9"></div>
+          </div>
+        </section>
+
+        <section style="padding:22px 0 0">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;padding:0 16px 10px">
+            <h2 style="margin:0;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:800">Categorías</h2>
+            <a href="#" style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;text-decoration:none">Todas</a>
+          </div>
+          <div style="display:grid;grid-template-columns:var(--v-catcols,repeat(5,1fr));border-top:2px solid var(--v-rule,rgba(32,30,29,.4));border-bottom:2px solid var(--v-rule,rgba(32,30,29,.4))">
+            <sc-for list="{{ cats }}" as="c" hint-placeholder-count="5">
+              <button onClick="{{ c.pick }}" style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:15px 4px 14px;background:{{ c.bg }};color:inherit;border:0;border-left:1px dashed var(--v-hair,rgba(32,30,29,.16));cursor:pointer;font-family:inherit;transition:background .2s ease" style-hover="background:rgba(128,128,128,.1)" style-active="transform:scale(.96)">
+                <i data-lucide="{{ c.icon }}" style="width:23px;height:23px;stroke-width:1.6"></i>
+                <span style="font-size:9.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;line-height:1.15;text-align:center">{{ c.label }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </section>
+
+        <section style="padding:22px 0 0">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;padding:0 16px 10px">
+            <h2 style="margin:0;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:800">Comprar de nuevo</h2>
+            <span style="font-size:10.5px;opacity:.55;font-weight:600;letter-spacing:.06em">1 TOQUE</span>
+          </div>
+          <div style="display:flex;gap:12px;overflow-x:auto;padding:0 16px 4px;scrollbar-width:none">
+            <sc-for list="{{ reorders }}" as="r" hint-placeholder-count="2">
+              <div style="flex:none;width:238px;border:2px solid var(--v-rule,rgba(32,30,29,.4));background:var(--v-surface,#eae9e9);display:flex;flex-direction:column">
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 12px 8px;border-bottom:1px dashed var(--v-hair,rgba(32,30,29,.16))">
+                  <span style="font-size:10.5px;font-weight:800;letter-spacing:.1em;font-variant-numeric:tabular-nums">{{ r.id }}</span>
+                  <span style="font-size:10.5px;opacity:.55;font-weight:600">{{ r.date }}</span>
+                </div>
+                <div style="padding:10px 12px 12px;flex:1">
+                  <div style="font-size:13px;line-height:1.35;font-weight:600">{{ r.items }}</div>
+                  <div style="display:flex;align-items:baseline;gap:7px;margin-top:8px">
+                    <span style="font-weight:800;font-size:18px;font-variant-numeric:tabular-nums;letter-spacing:-.01em">{{ r.total }}</span>
+                    <span style="font-size:10.5px;opacity:.55;font-weight:600">{{ r.count }}</span>
+                  </div>
+                </div>
+                <button onClick="{{ r.reorder }}" style="border:0;border-top:2px solid var(--v-rule,rgba(32,30,29,.4));background:var(--v-ink,#201e1d);color:var(--v-onOffer,#f3f2f2);font-family:inherit;font-weight:800;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;padding:12px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:background .18s ease,transform .12s ease" style-hover="background:var(--v-offer,#ae1800)" style-active="transform:scale(.98)">
+                  Repetir pedido <i data-lucide="rotate-ccw" style="width:15px;height:15px"></i>
+                </button>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+
+        <section style="padding:24px 0 0">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;padding:0 16px 4px">
+            <h2 style="margin:0;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:800">{{ gridTitle }}</h2>
+            <button onClick="{{ refresh }}" style="display:flex;align-items:center;gap:6px;background:transparent;border:0;color:inherit;opacity:.6;font-family:inherit;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;padding:4px 0" style-hover="opacity:1">
+              Actualizar <i data-lucide="refresh-cw" style="width:13px;height:13px"></i>
+            </button>
+          </div>
+
+          <sc-if value="{{ loading }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;grid-template-columns:var(--v-gridcols,1fr 1fr);border-top:2px solid var(--v-rule,rgba(32,30,29,.4))">
+              <sc-for list="{{ skeletons }}" as="k" hint-placeholder-count="4">
+                <div style="border-bottom:1px solid var(--v-hair,rgba(32,30,29,.16));border-left:1px dashed var(--v-hair,rgba(32,30,29,.16));padding:14px 13px 16px">
+                  <div style="height:74px;background:linear-gradient(90deg,rgba(128,128,128,.1) 0%,rgba(128,128,128,.22) 50%,rgba(128,128,128,.1) 100%);background-size:320px 100%;animation:v-shimmer 1.1s linear infinite"></div>
+                  <div style="height:11px;margin-top:12px;width:86%;background:rgba(128,128,128,.16)"></div>
+                  <div style="height:11px;margin-top:7px;width:54%;background:rgba(128,128,128,.16)"></div>
+                  <div style="height:30px;margin-top:14px;background:rgba(128,128,128,.12)"></div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ ready }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid;grid-template-columns:var(--v-gridcols,1fr 1fr);border-top:2px solid var(--v-rule,rgba(32,30,29,.4))">
+              <sc-for list="{{ products }}" as="p" hint-placeholder-count="6">
+                <div style="position:relative;border-bottom:1px solid var(--v-hair,rgba(32,30,29,.16));border-left:1px dashed var(--v-hair,rgba(32,30,29,.16));padding:13px 13px 14px;display:flex;flex-direction:column;background:var(--v-bg,#f3f2f2)">
+                  <div style="height:80px;background:var(--v-surface,#eae9e9);display:grid;place-items:center;position:relative;overflow:hidden">
+                    <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(128,128,128,.14) 0 2px,transparent 2px 7px)"></div>
+                    <i data-lucide="{{ p.icon }}" style="width:30px;height:30px;stroke-width:1.4;opacity:.65;position:relative"></i>
+                    <span style="position:absolute;bottom:4px;left:5px;font-size:8px;letter-spacing:.1em;font-family:ui-monospace,Menlo,monospace;opacity:.5">FOTO PRODUCTO</span>
+                  </div>
+                  <sc-if value="{{ p.isOffer }}" hint-placeholder-val="{{ false }}">
+                    <span style="position:absolute;top:13px;left:13px;background:var(--v-offer,#ae1800);color:var(--v-onOffer,#f8f4f4);font-size:9.5px;font-weight:800;letter-spacing:.08em;padding:3px 6px">{{ p.offerLabel }}</span>
+                  </sc-if>
+                  <div style="font-size:8.5px;letter-spacing:.12em;font-family:ui-monospace,Menlo,monospace;opacity:.5;margin-top:11px">{{ p.sku }}</div>
+                  <div style="font-size:13.5px;font-weight:700;line-height:1.28;margin-top:4px;text-wrap:pretty">{{ p.name }}</div>
+                  <div style="font-size:11px;opacity:.6;margin-top:4px;font-weight:600;letter-spacing:.02em">{{ p.spec }}</div>
+                  <div style="display:flex;align-items:center;gap:5px;margin-top:8px">
+                    <span style="width:6px;height:6px;background:{{ p.stockColor }};flex:none"></span>
+                    <span style="font-size:10.5px;font-weight:700;letter-spacing:.03em;opacity:.75">{{ p.stockLabel }}</span>
+                  </div>
+                  <div style="margin-top:auto;padding-top:12px;border-top:1px dashed var(--v-hair,rgba(32,30,29,.16));display:flex;align-items:flex-end;justify-content:space-between;gap:8px">
+                    <div>
+                      <sc-if value="{{ p.isOffer }}" hint-placeholder-val="{{ false }}">
+                        <div style="font-size:11px;opacity:.5;text-decoration:line-through;font-variant-numeric:tabular-nums">{{ p.oldPrice }}</div>
+                      </sc-if>
+                      <div style="font-weight:800;font-size:19px;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1">{{ p.price }}</div>
+                      <div style="font-size:9.5px;opacity:.5;font-weight:600;letter-spacing:.04em">{{ p.unit }}</div>
+                    </div>
+                    <button onClick="{{ p.add }}" aria-label="Agregar al carrito" style="flex:none;width:40px;height:40px;display:grid;place-items:center;background:var(--v-accent,#f7cb15);color:var(--v-onAccent,#201e1d);border:0;cursor:pointer;transition:transform .13s cubic-bezier(.34,1.56,.64,1),filter .18s ease" style-hover="filter:brightness(1.08);transform:translateY(-2px)" style-active="transform:scale(.88)">
+                      <i data-lucide="plus" style="width:19px;height:19px;stroke-width:2.6"></i>
+                    </button>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+            <div style="border-top:2px solid var(--v-rule,rgba(32,30,29,.4));padding:44px 22px 40px;text-align:left">
+              <i data-lucide="unplug" style="width:34px;height:34px;stroke-width:1.4;opacity:.5"></i>
+              <div style="font-weight:800;font-size:20px;letter-spacing:-.015em;margin-top:14px">Sin resultados</div>
+              <p style="font-size:13.5px;opacity:.65;margin:6px 0 16px;max-width:32ch">No encontramos ese material. Revisa el código o busca por categoría.</p>
+              <button onClick="{{ clearQuery }}" style="background:var(--v-ink,#201e1d);color:var(--v-bg,#f3f2f2);border:0;font-family:inherit;font-weight:800;font-size:13px;padding:12px 16px;cursor:pointer;letter-spacing:.03em;transition:transform .12s ease" style-active="transform:scale(.96)">Limpiar búsqueda</button>
+            </div>
+          </sc-if>
+        </section>
+
+        <div style="padding:22px 16px 8px;display:flex;gap:10px;align-items:flex-start;border-top:2px solid var(--v-rule,rgba(32,30,29,.4));margin-top:22px">
+          <i data-lucide="truck" style="width:19px;height:19px;stroke-width:1.6;opacity:.7;flex:none;margin-top:2px"></i>
+          <div style="font-size:12px;line-height:1.45;opacity:.7">Retiro en tienda en 2 h · Envío mismo día en pedidos antes de las 14:00. Comprobante de transferencia se carga desde la cámara.</div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isOther }}" hint-placeholder-val="{{ false }}">
+      <section style="padding:16px">
+        <div style="border:2px solid var(--v-rule,rgba(32,30,29,.4));background:var(--v-surface,#eae9e9);padding:24px 20px;animation:v-rise .2s ease both">
+          <div style="font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:800;opacity:.55">Siguiente entrega</div>
+          <div style="font-weight:800;font-size:26px;letter-spacing:-.02em;margin-top:8px">{{ otherTitle }}</div>
+          <p style="font-size:13.5px;opacity:.7;margin:8px 0 0;max-width:34ch">Esta entrega cubre Home. Esta pantalla queda especificada en el brief y se diseña en la próxima ronda.</p>
+          <div style="height:8px;margin-top:20px;background:repeating-linear-gradient(90deg,var(--v-rule,rgba(32,30,29,.4)) 0 6px,transparent 6px 12px)"></div>
+        </div>
+      </section>
+    </sc-if>
+
+  </div>
+
+  <nav style="position:fixed;bottom:0;left:0;right:0;background:var(--v-bg,#f3f2f2);border-top:2px solid var(--v-rule,rgba(32,30,29,.4));z-index:40">
+    <div style="max-width:var(--v-shell,468px);margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+        <button onClick="{{ t.go }}" style="position:relative;display:flex;flex-direction:column;align-items:center;gap:5px;padding:11px 2px 16px;background:transparent;border:0;border-top:3px solid {{ t.mark }};color:inherit;opacity:{{ t.dim }};cursor:pointer;font-family:inherit;transition:opacity .2s ease,border-color .2s ease" style-hover="opacity:1">
+          <i data-lucide="{{ t.icon }}" style="width:21px;height:21px;stroke-width:{{ t.stroke }}"></i>
+          <span style="font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase">{{ t.label }}</span>
+          <sc-if value="{{ t.badge }}" hint-placeholder-val="{{ false }}">
+            <span style="position:absolute;top:7px;right:calc(50% - 22px);min-width:17px;height:17px;padding:0 4px;background:var(--v-accent,#f7cb15);color:var(--v-onAccent,#201e1d);font-size:10.5px;font-weight:800;display:grid;place-items:center;font-variant-numeric:tabular-nums">{{ cartCount }}</span>
+          </sc-if>
+        </button>
+      </sc-for>
+    </div>
+  </nav>
+
+  <sc-if value="{{ stamp }}" hint-placeholder-val="{{ false }}">
+    <div aria-live="polite" style="position:fixed;inset:0;display:grid;place-items:center;pointer-events:none;z-index:60">
+      <div style="border:4px solid var(--v-offerInk,#ae1800);color:var(--v-offerInk,#ae1800);background:color-mix(in srgb, var(--v-bg,#f3f2f2) 82%, transparent);padding:14px 22px;transform:rotate(-7deg);animation:v-stamp 1s ease both;text-align:center">
+        <div style="font-size:11px;letter-spacing:.28em;font-weight:800">AGREGADO</div>
+        <div style="font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.05;margin-top:2px">{{ stampQty }}</div>
+        <div style="font-size:9.5px;letter-spacing:.14em;font-weight:700;opacity:.8;margin-top:3px">{{ stamp }}</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div aria-live="polite" style="position:fixed;bottom:88px;left:0;right:0;display:flex;justify-content:center;pointer-events:none;z-index:55">
+      <div style="background:var(--v-ink,#201e1d);color:var(--v-bg,#f3f2f2);padding:11px 15px;font-size:13px;font-weight:700;letter-spacing:.02em;animation:v-toast 2.2s ease both;display:flex;align-items:center;gap:9px;max-width:88%">
+        <i data-lucide="check" style="width:16px;height:16px;stroke-width:2.6"></i>{{ toast }}
+      </div>
+    </div>
+  </sc-if>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:468,&quot;height&quot;:940},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Claro&quot;,&quot;Oscuro&quot;],&quot;default&quot;:&quot;Claro&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Identidad&quot;},&quot;accent&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Amarillo seguridad&quot;,&quot;Rojo óxido&quot;],&quot;default&quot;:&quot;Amarillo seguridad&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Identidad&quot;}}">
+const CLP = n => "$" + n.toLocaleString("es-CL");
+const norm = s => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+function editDist(a, b) {
+  const m = a.length, n = b.length;
+  if (Math.abs(m - n) > 2) return 3;
+  let prev = Array.from({ length: n + 1 }, (_, j) => j);
+  for (let i = 1; i <= m; i++) {
+    const cur = [i];
+    for (let j = 1; j <= n; j++) {
+      cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+    }
+    prev = cur;
+  }
+  return prev[n];
+}
+
+const CATS = [
+  { key: "cables", label: "Cables", icon: "cable" },
+  { key: "ilum", label: "Ilumin.", icon: "lightbulb" },
+  { key: "inter", label: "Interrup.", icon: "toggle-right" },
+  { key: "prot", label: "Protecc.", icon: "shield-check" },
+  { key: "herr", label: "Herram.", icon: "wrench" }
+];
+
+const PRODUCTS = [
+  { id: 1, sku: "CBL-12-100", name: "Cable THHN 12 AWG · rollo 100 m", spec: "12 AWG · 600 V · cobre", cat: "cables", icon: "cable", price: 34990, old: 44990, offer: "−22%", stock: 18, unit: "por rollo" },
+  { id: 2, sku: "ILU-LED-9W", name: "Ampolleta LED 9 W E27 luz fría", spec: "9 W · 806 lm · 6500 K", cat: "ilum", icon: "lightbulb", price: 2490, old: 0, offer: "", stock: 240, unit: "por unidad" },
+  { id: 3, sku: "INT-S10-BL", name: "Interruptor simple 10 A blanco", spec: "10 A · 250 V · embutido", cat: "inter", icon: "toggle-right", price: 1890, old: 0, offer: "", stock: 4, unit: "por unidad" },
+  { id: 4, sku: "PRT-2X20C", name: "Automático 2×20 A curva C", spec: "20 A · 6 kA · riel DIN", cat: "prot", icon: "shield-check", price: 8750, old: 10900, offer: "OFERTA", stock: 32, unit: "por unidad" },
+  { id: 5, sku: "HER-ALI-8", name: "Alicate universal 8\" aislado", spec: "1000 V · VDE · acero", cat: "herr", icon: "wrench", price: 12990, old: 0, offer: "", stock: 0, unit: "por unidad" },
+  { id: 6, sku: "TOM-D16-BL", name: "Tomacorriente doble 16 A", spec: "16 A · 250 V · con tierra", cat: "inter", icon: "plug", price: 3290, old: 3990, offer: "−18%", stock: 76, unit: "por unidad" }
+];
+
+const REORDERS = [
+  { id: "#1042", date: "12 ago", items: "Cable THHN 12 AWG, automático 2×20 A, canaleta 20×10", total: 78430, count: "9 ítems" },
+  { id: "#1017", date: "28 jul", items: "Ampolleta LED 9 W ×20, interruptor simple ×6", total: 61240, count: "26 ítems" }
+];
+
+const TABS = [
+  { key: "home", label: "Inicio", icon: "layout-grid" },
+  { key: "cats", label: "Catálogo", icon: "list", title: "Catálogo con filtros" },
+  { key: "search", label: "Buscar", icon: "search", title: "Búsqueda avanzada" },
+  { key: "cart", label: "Carrito", icon: "shopping-basket", title: "Carrito y checkout" },
+  { key: "acct", label: "Cuenta", icon: "user-round", title: "Mis pedidos y cuenta" }
+];
+
+const BAR = [3, 6, 2, 4, 8, 2, 3, 5, 2, 7, 3, 2, 5, 4, 2, 6, 3, 8, 2, 4, 3, 6];
+
+class Component extends DCLogic {
+  state = { theme: "light", cart: 0, query: "", tab: "home", loading: true, stamp: "", stampQty: "", toast: "", cat: null, mins: 41, secs: 12 };
+
+  componentDidMount() {
+    this.applyVars();
+    this.icons();
+    this.t = setTimeout(() => this.setState({ loading: false }), 850);
+    this.tick = setInterval(() => this.setState(s => {
+      const total = Math.max(0, s.mins * 60 + s.secs - 1);
+      return { mins: Math.floor(total / 60), secs: total % 60 };
+    }), 1000);
+  }
+  componentDidUpdate() { this.applyVars(); this.icons(); }
+  componentWillUnmount() { clearTimeout(this.t); clearInterval(this.tick); clearTimeout(this.st); clearTimeout(this.tt); }
+
+  icons() {
+    try { if (window.lucide) window.lucide.createIcons(); } catch (e) {}
+  }
+
+  applyVars() {
+    const dark = (this.props.theme ?? "Claro") === "Oscuro" ? true : this.state.theme === "dark";
+    const yellow = (this.props.accent ?? "Amarillo seguridad") === "Amarillo seguridad";
+    const v = {
+      "--v-bg": dark ? "#1a1817" : "#f3f2f2",
+      "--v-surface": dark ? "#262322" : "#eae9e9",
+      "--v-ink": dark ? "#f4f1ef" : "#201e1d",
+      "--v-hair": dark ? "rgba(244,241,239,.18)" : "rgba(32,30,29,.16)",
+      "--v-rule": dark ? "rgba(244,241,239,.42)" : "rgba(32,30,29,.4)",
+      "--v-accent": yellow ? (dark ? "#ffd633" : "#f7cb15") : (dark ? "#ff563c" : "#ec3013"),
+      "--v-onAccent": yellow ? "#201e1d" : (dark ? "#1a1817" : "#f3f2f2"),
+      "--v-offer": "#ae1800",
+      "--v-onOffer": "#f8f4f4",
+      "--v-offerInk": dark ? "#ff9783" : "#ae1800",
+      "--v-link": dark ? "#ff9783" : "#ae1800",
+      "--v-link-hover": dark ? "#ffc4b8" : "#dd2b0f",
+      "--v-shell": this.wide ? "1080px" : "468px",
+      "--v-gridcols": this.wide ? "repeat(4,1fr)" : "1fr 1fr",
+      "--v-catcols": "repeat(5,1fr)"
+    };
+    const r = document.documentElement.style;
+    Object.keys(v).forEach(k => r.setProperty(k, v[k]));
+    document.documentElement.style.background = v["--v-bg"];
+  }
+
+  get wide() { return typeof window !== "undefined" && window.innerWidth >= 1000; }
+
+  flash(name, qty) {
+    clearTimeout(this.st);
+    this.setState({ stamp: name, stampQty: qty });
+    this.st = setTimeout(() => this.setState({ stamp: "" }), 1000);
+  }
+  say(msg) {
+    clearTimeout(this.tt);
+    this.setState({ toast: msg });
+    this.tt = setTimeout(() => this.setState({ toast: "" }), 2200);
+  }
+
+  search(q) {
+    const nq = norm(q.trim());
+    if (!nq) return PRODUCTS;
+    return PRODUCTS.filter(p => {
+      const hay = norm(p.name + " " + p.sku + " " + p.spec + " " + p.cat);
+      if (hay.includes(nq)) return true;
+      return hay.split(/[\s·,]+/).some(w => w.length > 3 && editDist(w.slice(0, nq.length + 1), nq) <= (nq.length > 5 ? 2 : 1));
+    });
+  }
+
+  renderVals() {
+    const s = this.state;
+    const q = s.query;
+    const filteredByCat = s.cat ? PRODUCTS.filter(p => p.cat === s.cat) : PRODUCTS;
+    const list = q.trim() ? this.search(q) : filteredByCat;
+    const catName = s.cat ? CATS.find(c => c.key === s.cat).label : null;
+    const activeTab = TABS.find(t => t.key === s.tab);
+
+    return {
+      cartCount: s.cart,
+      hasCart: s.cart > 0,
+      hasQuery: q.length > 0,
+      query: q,
+      onQuery: e => this.setState({ query: e.target.value }),
+      clearQuery: () => this.setState({ query: "", cat: null }),
+      showSuggest: q.trim().length > 1 && list.length > 0,
+      suggestHead: list.length === 1 ? "1 coincidencia" : list.length + " coincidencias",
+      suggestions: list.slice(0, 4).map(p => ({
+        name: p.name, sku: p.sku,
+        pick: () => this.setState({ query: p.name, cat: null })
+      })),
+      countdown: "0" + Math.floor(s.mins / 60) + ":" + String(s.mins % 60).padStart(2, "0") + ":" + String(s.secs).padStart(2, "0"),
+      barcode: BAR.map(w => ({ w: w + "px", o: w > 5 ? 1 : 0.65 })),
+      toggleTheme: () => this.setState(p => ({ theme: p.theme === "dark" ? "light" : "dark" })),
+      goCart: () => this.setState({ tab: "cart" }),
+      viewOffers: () => { this.setState({ tab: "home", cat: null, query: "oferta" }); this.say("Filtro: solo ofertas"); },
+      isHome: s.tab === "home",
+      isOther: s.tab !== "home",
+      otherTitle: activeTab ? (activeTab.title || activeTab.label) : "",
+      cats: CATS.map(c => ({
+        label: c.label, icon: c.icon,
+        bg: s.cat === c.key ? "var(--v-accent,#f7cb15)" : "transparent",
+        pick: () => { this.setState({ cat: s.cat === c.key ? null : c.key, query: "", tab: "home" }); this.say(s.cat === c.key ? "Filtro quitado" : c.label); }
+      })),
+      reorders: REORDERS.map(r => ({
+        id: r.id, date: r.date, items: r.items, total: CLP(r.total), count: r.count,
+        reorder: () => { this.setState(p => ({ cart: p.cart + parseInt(r.count) })); this.flash("PEDIDO " + r.id, parseInt(r.count) + " ítems"); }
+      })),
+      gridTitle: catName ? catName.toUpperCase() : (q.trim() ? "Resultados" : "Destacados de la semana"),
+      loading: s.loading,
+      ready: !s.loading && list.length > 0,
+      empty: !s.loading && list.length === 0,
+      skeletons: [1, 2, 3, 4],
+      refresh: () => { this.setState({ loading: true }); clearTimeout(this.t); this.t = setTimeout(() => this.setState({ loading: false }), 850); },
+      products: list.map(p => ({
+        sku: p.sku, name: p.name, spec: p.spec, icon: p.icon, unit: p.unit,
+        price: CLP(p.price), oldPrice: p.old ? CLP(p.old) : "",
+        isOffer: !!p.offer, offerLabel: p.offer,
+        stockLabel: p.stock === 0 ? "Sin stock" : p.stock < 10 ? "Últimas " + p.stock + " un." : p.stock + " en stock",
+        stockColor: p.stock === 0 ? "var(--v-offerInk,#ae1800)" : p.stock < 10 ? "#e0a000" : "#2f7d32",
+        add: () => {
+          if (p.stock === 0) { this.say("Sin stock — te avisamos al llegar"); return; }
+          this.setState(prev => ({ cart: prev.cart + 1 }));
+          this.flash(p.sku, "+1");
+        }
+      })),
+      tabs: TABS.map(t => ({
+        label: t.label, icon: t.icon,
+        go: () => this.setState({ tab: t.key }),
+        mark: s.tab === t.key ? "var(--v-accent,#f7cb15)" : "transparent",
+        dim: s.tab === t.key ? 1 : 0.5,
+        stroke: s.tab === t.key ? 2.2 : 1.7,
+        badge: t.key === "cart" && s.cart > 0
+      })),
+      stamp: s.stamp,
+      stampQty: s.stampQty,
+      toast: s.toast
+    };
+  }
+}
+
+</script>
+</body>
+</html>

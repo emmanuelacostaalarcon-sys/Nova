@@ -1,0 +1,474 @@
+{
+  "currency": "CLP",
+  "categories": [
+    {
+      "key": "cables",
+      "label": "Cables",
+      "count": "48 SKU",
+      "title": "Cables y conductores",
+      "lead": "Conductores de cobre certificados SEC, por rollo o por metro. Calibres 10 a 16 AWG en stock permanente."
+    },
+    {
+      "key": "ilum",
+      "label": "Iluminación",
+      "count": "126 SKU",
+      "title": "Iluminación LED",
+      "lead": "Ampolletas, paneles y proyectores de bajo consumo con temperatura de color definida y garantía de dos años."
+    },
+    {
+      "key": "prot",
+      "label": "Protección",
+      "count": "72 SKU",
+      "title": "Protección eléctrica",
+      "lead": "Automáticos, diferenciales y tableros para riel DIN. Curvas B y C, capacidad de corte hasta 10 kA."
+    },
+    {
+      "key": "inter",
+      "label": "Interruptores",
+      "count": "94 SKU",
+      "title": "Interruptores y enchufes",
+      "lead": "Líneas embutidas y de sobreponer, blancas y en acabados metálicos, con tierra en todos los modelos."
+    },
+    {
+      "key": "herr",
+      "label": "Herramientas",
+      "count": "58 SKU",
+      "title": "Herramientas",
+      "lead": "Herramienta aislada 1000 V con certificación VDE, instrumentos de medición y accesorios de taller."
+    },
+    {
+      "key": "canal",
+      "label": "Canalización",
+      "count": "63 SKU",
+      "title": "Canalización",
+      "lead": "Canaletas, tubería corrugada y cajas de derivación para instalación a la vista o embutida."
+    },
+    {
+      "key": "medic",
+      "label": "Medición",
+      "count": "31 SKU",
+      "title": "Medición",
+      "lead": "Multitesters, pinzas amperimétricas y detectores de tensión para diagnóstico en obra."
+    }
+  ],
+  "products": [
+    {
+      "sku": "CBL-12-100",
+      "cat": "cables",
+      "brand": "Covisa",
+      "name": "Cable THHN 12 AWG · rollo 100 m",
+      "spec": "12 AWG · 600 V · cobre",
+      "price": 34990,
+      "old": 44990,
+      "stock": 18,
+      "unit": "rollo"
+    },
+    {
+      "sku": "CBL-14-100",
+      "cat": "cables",
+      "brand": "Covisa",
+      "name": "Cable THHN 14 AWG · rollo 100 m",
+      "spec": "14 AWG · 600 V · cobre",
+      "price": 24500,
+      "old": 0,
+      "stock": 26,
+      "unit": "rollo"
+    },
+    {
+      "sku": "CBL-10-100",
+      "cat": "cables",
+      "brand": "Covisa",
+      "name": "Cable THHN 10 AWG · rollo 100 m",
+      "spec": "10 AWG · 600 V · cobre",
+      "price": 52900,
+      "old": 0,
+      "stock": 11,
+      "unit": "rollo"
+    },
+    {
+      "sku": "CBL-FLX-25",
+      "cat": "cables",
+      "brand": "Indelqui",
+      "name": "Cordón flexible 2×1,5 mm · 25 m",
+      "spec": "2×1,5 mm² · 300 V",
+      "price": 11900,
+      "old": 14200,
+      "stock": 9,
+      "unit": "rollo"
+    },
+    {
+      "sku": "CBL-EVA-50",
+      "cat": "cables",
+      "brand": "Indelqui",
+      "name": "Cable EVA 3×2,5 mm · 50 m",
+      "spec": "3×2,5 mm² · 750 V",
+      "price": 39800,
+      "old": 0,
+      "stock": 7,
+      "unit": "rollo"
+    },
+    {
+      "sku": "CBL-TIE-100",
+      "cat": "cables",
+      "brand": "Covisa",
+      "name": "Cable de tierra desnudo 16 mm²",
+      "spec": "16 mm² · cobre desnudo",
+      "price": 61200,
+      "old": 0,
+      "stock": 4,
+      "unit": "rollo"
+    },
+    {
+      "sku": "ILU-LED-9W",
+      "cat": "ilum",
+      "brand": "Lumex",
+      "name": "Ampolleta LED 9 W E27 luz fría",
+      "spec": "9 W · 806 lm · 6500 K",
+      "price": 2490,
+      "old": 0,
+      "stock": 240,
+      "unit": "unidad"
+    },
+    {
+      "sku": "ILU-LED-12W",
+      "cat": "ilum",
+      "brand": "Lumex",
+      "name": "Ampolleta LED 12 W E27 luz cálida",
+      "spec": "12 W · 1055 lm · 3000 K",
+      "price": 3190,
+      "old": 3890,
+      "stock": 180,
+      "unit": "unidad"
+    },
+    {
+      "sku": "ILU-PAN-24",
+      "cat": "ilum",
+      "brand": "Lumex",
+      "name": "Panel LED 24 W embutido 30×30",
+      "spec": "24 W · 2100 lm · 4000 K",
+      "price": 15900,
+      "old": 19900,
+      "stock": 12,
+      "unit": "unidad"
+    },
+    {
+      "sku": "ILU-PROY-50",
+      "cat": "ilum",
+      "brand": "Lumex",
+      "name": "Proyector LED 50 W exterior IP65",
+      "spec": "50 W · 4500 lm · IP65",
+      "price": 21400,
+      "old": 0,
+      "stock": 6,
+      "unit": "unidad"
+    },
+    {
+      "sku": "ILU-TUB-18",
+      "cat": "ilum",
+      "brand": "Philex",
+      "name": "Tubo LED T8 18 W · 120 cm",
+      "spec": "18 W · 1800 lm · 6500 K",
+      "price": 4890,
+      "old": 0,
+      "stock": 96,
+      "unit": "unidad"
+    },
+    {
+      "sku": "ILU-CIN-5M",
+      "cat": "ilum",
+      "brand": "Philex",
+      "name": "Cinta LED 5 m 12 V IP20",
+      "spec": "60 led/m · 4000 K",
+      "price": 8990,
+      "old": 11500,
+      "stock": 22,
+      "unit": "rollo"
+    },
+    {
+      "sku": "PRT-2X20C",
+      "cat": "prot",
+      "brand": "Schneider",
+      "name": "Automático 2×20 A curva C",
+      "spec": "20 A · 6 kA · riel DIN",
+      "price": 8750,
+      "old": 10900,
+      "stock": 32,
+      "unit": "unidad"
+    },
+    {
+      "sku": "PRT-1X10C",
+      "cat": "prot",
+      "brand": "Schneider",
+      "name": "Automático 1×10 A curva C",
+      "spec": "10 A · 6 kA · riel DIN",
+      "price": 3990,
+      "old": 0,
+      "stock": 120,
+      "unit": "unidad"
+    },
+    {
+      "sku": "PRT-DIF-25",
+      "cat": "prot",
+      "brand": "Schneider",
+      "name": "Diferencial 2×25 A 30 mA",
+      "spec": "25 A · 30 mA · riel DIN",
+      "price": 26900,
+      "old": 0,
+      "stock": 14,
+      "unit": "unidad"
+    },
+    {
+      "sku": "PRT-TAB-12",
+      "cat": "prot",
+      "brand": "Legrand",
+      "name": "Tablero embutido 12 módulos",
+      "spec": "12 mód. · IP40 · puerta",
+      "price": 18700,
+      "old": 22400,
+      "stock": 0,
+      "unit": "unidad"
+    },
+    {
+      "sku": "PRT-TAB-24",
+      "cat": "prot",
+      "brand": "Legrand",
+      "name": "Tablero embutido 24 módulos",
+      "spec": "24 mód. · IP40 · puerta",
+      "price": 31500,
+      "old": 0,
+      "stock": 8,
+      "unit": "unidad"
+    },
+    {
+      "sku": "PRT-DPS-40",
+      "cat": "prot",
+      "brand": "Schneider",
+      "name": "Protector de sobretensión 40 kA",
+      "spec": "Tipo 2 · 40 kA · riel DIN",
+      "price": 44900,
+      "old": 52900,
+      "stock": 5,
+      "unit": "unidad"
+    },
+    {
+      "sku": "INT-S10-BL",
+      "cat": "inter",
+      "brand": "Bticino",
+      "name": "Interruptor simple 10 A blanco",
+      "spec": "10 A · 250 V · embutido",
+      "price": 1890,
+      "old": 0,
+      "stock": 4,
+      "unit": "unidad"
+    },
+    {
+      "sku": "INT-D10-BL",
+      "cat": "inter",
+      "brand": "Bticino",
+      "name": "Interruptor doble 10 A blanco",
+      "spec": "10 A · 250 V · embutido",
+      "price": 2790,
+      "old": 0,
+      "stock": 58,
+      "unit": "unidad"
+    },
+    {
+      "sku": "TOM-D16-BL",
+      "cat": "inter",
+      "brand": "Bticino",
+      "name": "Tomacorriente doble 16 A",
+      "spec": "16 A · 250 V · con tierra",
+      "price": 3290,
+      "old": 3990,
+      "stock": 76,
+      "unit": "unidad"
+    },
+    {
+      "sku": "INT-DIM-BL",
+      "cat": "inter",
+      "brand": "Bticino",
+      "name": "Dimmer rotatorio 300 W",
+      "spec": "300 W · 250 V · embutido",
+      "price": 9800,
+      "old": 0,
+      "stock": 17,
+      "unit": "unidad"
+    },
+    {
+      "sku": "TOM-USB-BL",
+      "cat": "inter",
+      "brand": "Legrand",
+      "name": "Módulo doble USB-A + USB-C",
+      "spec": "18 W · 5 V · embutido",
+      "price": 14600,
+      "old": 17900,
+      "stock": 12,
+      "unit": "unidad"
+    },
+    {
+      "sku": "INT-EST-IP55",
+      "cat": "inter",
+      "brand": "Legrand",
+      "name": "Enchufe estanco IP55 sobreponer",
+      "spec": "16 A · IP55 · exterior",
+      "price": 6790,
+      "old": 0,
+      "stock": 29,
+      "unit": "unidad"
+    },
+    {
+      "sku": "HER-ALI-8",
+      "cat": "herr",
+      "brand": "Bahco",
+      "name": "Alicate universal 8\" aislado",
+      "spec": "1000 V · VDE · acero",
+      "price": 12990,
+      "old": 0,
+      "stock": 0,
+      "unit": "unidad"
+    },
+    {
+      "sku": "HER-DES-VDE",
+      "cat": "herr",
+      "brand": "Bahco",
+      "name": "Juego destornilladores VDE 6 pz",
+      "spec": "1000 V · VDE · 6 piezas",
+      "price": 18400,
+      "old": 0,
+      "stock": 21,
+      "unit": "juego"
+    },
+    {
+      "sku": "HER-MUL-DG",
+      "cat": "herr",
+      "brand": "Bahco",
+      "name": "Multitester digital TRMS",
+      "spec": "600 V · TRMS · CAT III",
+      "price": 32900,
+      "old": 39900,
+      "stock": 7,
+      "unit": "unidad"
+    },
+    {
+      "sku": "HER-PIN-600",
+      "cat": "herr",
+      "brand": "Fluex",
+      "name": "Pinza amperimétrica 600 A",
+      "spec": "600 A · TRMS · CAT III",
+      "price": 58900,
+      "old": 0,
+      "stock": 6,
+      "unit": "unidad"
+    },
+    {
+      "sku": "HER-PEL-AUT",
+      "cat": "herr",
+      "brand": "Bahco",
+      "name": "Pelacables automático 0,2–6 mm²",
+      "spec": "0,2–6 mm² · autoajustable",
+      "price": 15700,
+      "old": 18900,
+      "stock": 15,
+      "unit": "unidad"
+    },
+    {
+      "sku": "HER-CIN-30",
+      "cat": "herr",
+      "brand": "Fluex",
+      "name": "Cinta pasacables 30 m fibra",
+      "spec": "30 m · fibra de vidrio",
+      "price": 22400,
+      "old": 0,
+      "stock": 9,
+      "unit": "unidad"
+    },
+    {
+      "sku": "CAN-20X10",
+      "cat": "canal",
+      "brand": "Legrand",
+      "name": "Canaleta PVC 20×10 mm · 2 m",
+      "spec": "20×10 mm · adhesiva",
+      "price": 2190,
+      "old": 0,
+      "stock": 190,
+      "unit": "tira"
+    },
+    {
+      "sku": "CAN-COR-20",
+      "cat": "canal",
+      "brand": "Legrand",
+      "name": "Tubo corrugado 20 mm · rollo 25 m",
+      "spec": "20 mm · flexible · gris",
+      "price": 8900,
+      "old": 10500,
+      "stock": 34,
+      "unit": "rollo"
+    },
+    {
+      "sku": "CAN-CAJ-4X4",
+      "cat": "canal",
+      "brand": "Indelqui",
+      "name": "Caja de derivación 4×4 estanca",
+      "spec": "IP55 · 100×100 mm",
+      "price": 3450,
+      "old": 0,
+      "stock": 3,
+      "unit": "unidad"
+    },
+    {
+      "sku": "CAN-BAN-100",
+      "cat": "canal",
+      "brand": "Legrand",
+      "name": "Bandeja portacables 100 mm · 3 m",
+      "spec": "100 mm · galvanizada",
+      "price": 27800,
+      "old": 0,
+      "stock": 11,
+      "unit": "tira"
+    },
+    {
+      "sku": "MED-DET-AC",
+      "cat": "medic",
+      "brand": "Fluex",
+      "name": "Detector de tensión sin contacto",
+      "spec": "90–1000 V · sonoro",
+      "price": 9400,
+      "old": 11900,
+      "stock": 41,
+      "unit": "unidad"
+    },
+    {
+      "sku": "MED-TEL-30",
+      "cat": "medic",
+      "brand": "Fluex",
+      "name": "Telémetro láser 30 m",
+      "spec": "30 m · ±2 mm",
+      "price": 34900,
+      "old": 0,
+      "stock": 8,
+      "unit": "unidad"
+    },
+    {
+      "sku": "MED-TER-IR",
+      "cat": "medic",
+      "brand": "Fluex",
+      "name": "Termómetro infrarrojo −30/500 °C",
+      "spec": "−30 a 500 °C · láser",
+      "price": 27600,
+      "old": 32900,
+      "stock": 6,
+      "unit": "unidad"
+    },
+    {
+      "sku": "MED-SEC-FAS",
+      "cat": "medic",
+      "brand": "Fluex",
+      "name": "Secuencímetro trifásico",
+      "spec": "3 fases · 120–400 V",
+      "price": 46800,
+      "old": 0,
+      "stock": 4,
+      "unit": "unidad"
+    }
+  ]
+}
